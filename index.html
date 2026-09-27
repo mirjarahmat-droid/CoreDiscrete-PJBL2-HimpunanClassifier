@@ -1,0 +1,126 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>CoreDiscrete — Klasifikasi Data dengan Himpunan</title>
+<link rel="stylesheet" href="css/style.css" />
+</head>
+<body>
+  <header>
+    <h1>CoreDiscrete</h1>
+    <p>Sistem Klasifikasi Keanggotaan Mahasiswa dalam Kegiatan Kampus (Berbasis Himpunan)</p>
+  </header>
+
+  <main>
+    <section class="card">
+      <h2>1. Dataset Mahasiswa (Himpunan Semesta U)</h2>
+      <table id="dataset-table">
+        <thead>
+          <tr>
+            <th>ID</th><th>Nama</th><th>NIM</th>
+            <th>A – Olahraga</th><th>B – Seni</th><th>C – Beasiswa</th>
+          </tr>
+        </thead>
+        <tbody></tbody>
+      </table>
+
+      <details>
+        <summary>+ Tambah data mahasiswa</summary>
+        <form id="add-form" class="inline-form">
+          <input id="f-nama" type="text" placeholder="Nama" required />
+          <input id="f-nim" type="text" placeholder="NIM" />
+          <label><input id="f-a" type="checkbox" /> UKM Olahraga (A)</label>
+          <label><input id="f-b" type="checkbox" /> UKM Seni (B)</label>
+          <label><input id="f-c" type="checkbox" /> Beasiswa (C)</label>
+          <button type="submit">Tambah</button>
+        </form>
+      </details>
+
+      <p class="small">
+        Atau impor dataset dari file JSON:
+        <input type="file" id="import-json" accept="application/json" />
+      </p>
+    </section>
+
+    <section class="card">
+      <h2>2. Operasi Himpunan</h2>
+      <form id="op-form" class="inline-form">
+        <label>Himpunan 1:
+          <select id="set1">
+            <option value="A">A — UKM Olahraga</option>
+            <option value="B">B — UKM Seni & Budaya</option>
+            <option value="C">C — Penerima Beasiswa</option>
+          </select>
+        </label>
+
+        <label>Operasi:
+          <select id="operation">
+            <option value="union">Union (∪)</option>
+            <option value="intersection">Intersection (∩)</option>
+            <option value="difference">Difference (−)</option>
+            <option value="complement">Complement (ᶜ)</option>
+          </select>
+        </label>
+
+        <label id="set2-wrap">Himpunan 2:
+          <select id="set2">
+            <option value="A">A — UKM Olahraga</option>
+            <option value="B" selected>B — UKM Seni & Budaya</option>
+            <option value="C">C — Penerima Beasiswa</option>
+          </select>
+        </label>
+
+        <button type="submit">Hitung</button>
+      </form>
+    </section>
+
+    <section class="card">
+      <h2>3. Hasil</h2>
+      <p id="result-formula" class="formula">— (pilih operasi lalu klik Hitung) —</p>
+      <div class="result-flex">
+        <ul id="result-list"></ul>
+
+        <svg id="venn" viewBox="0 0 400 300" xmlns="http://www.w3.org/2000/svg">
+          <defs>
+            <clipPath id="clipA"><circle cx="150" cy="130" r="90" /></clipPath>
+            <clipPath id="clipB"><circle cx="250" cy="130" r="90" /></clipPath>
+            <clipPath id="clipC"><circle cx="200" cy="210" r="90" /></clipPath>
+
+            <mask id="maskOutA">
+              <rect x="0" y="0" width="400" height="300" fill="white" />
+              <circle cx="150" cy="130" r="90" fill="black" />
+            </mask>
+            <mask id="maskOutB">
+              <rect x="0" y="0" width="400" height="300" fill="white" />
+              <circle cx="250" cy="130" r="90" fill="black" />
+            </mask>
+            <mask id="maskOutC">
+              <rect x="0" y="0" width="400" height="300" fill="white" />
+              <circle cx="200" cy="210" r="90" fill="black" />
+            </mask>
+          </defs>
+
+          <rect x="8" y="8" width="384" height="284" fill="none" stroke="#999" stroke-dasharray="4 3" />
+          <text x="16" y="26" class="u-label">U</text>
+
+          <circle cx="150" cy="130" r="90" fill="#e74c3c" opacity="0.18" />
+          <circle cx="250" cy="130" r="90" fill="#3498db" opacity="0.18" />
+          <circle cx="200" cy="210" r="90" fill="#2ecc71" opacity="0.18" />
+
+          <g id="highlight-layer"></g>
+
+          <text x="95" y="80" class="set-label">A</text>
+          <text x="295" y="80" class="set-label">B</text>
+          <text x="200" y="285" class="set-label" text-anchor="middle">C</text>
+        </svg>
+      </div>
+    </section>
+  </main>
+
+  <footer><p>CoreDiscrete — Proyek Mini #2 PJBL</p></footer>
+
+  <script src="js/data.js"></script>
+  <script src="js/app.js"></script>
+</body>
+</html>
